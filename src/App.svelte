@@ -42,7 +42,7 @@ init();
       <h1>Login test</h1>
     
 
-     <button id="loginButton">Login</button>
+     <button id="loginButton">Sign in with Internet Identity</button>
     
     
 </main>
