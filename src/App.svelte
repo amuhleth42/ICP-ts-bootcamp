@@ -67,7 +67,7 @@ init();
     <h1>Login test</h1>
     <button on:click={login} id="loginButton">Sign in with Internet Identity</button>
   {:else}
-    <Home {authClient}></Home>
+    <Home {authClient} bind:bound={isLoggedIn}></Home>
   {/if}
     
     

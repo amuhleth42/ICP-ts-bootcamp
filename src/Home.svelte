@@ -4,6 +4,7 @@
     import { all } from './global';
 
     export let authClient: AuthClient;
+    export let bound = true;
 
     function logout() {
         console.log("clicked logout");
@@ -12,6 +13,7 @@
         //console.log(loggedIn);
         authClient.logout();
         all.loggedIn = false;
+        bound = false;
         console.log(all.loggedIn);
     }
 
