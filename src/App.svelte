@@ -89,4 +89,17 @@ init();
   .read-the-docs {
     color: #888;
   }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+  }
 </style>
