@@ -1,5 +1,22 @@
+type User = record {
+  id : principal;
+  username : text;
+  recordingIds : vec principal;
+  createdAt : nat64;
+};
+type _AzleResult = variant {
+  Ok : User;
+  Err : _InlineDeleteUserReturnTypeTypeArg1;
+};
+type _InlineDeleteUserReturnTypeTypeArg1 = variant {
+  UserDoesNotExist : principal;
+};
 service : () -> {
   add : (nat) -> (nat);
+  createUser : (principal, text) -> (User);
+  deleteUser : (principal) -> (_AzleResult);
   get : () -> (nat) query;
   inc : () -> (nat);
+  readUserById : (principal) -> (opt User) query;
+  readUsers : () -> (vec User) query;
 }

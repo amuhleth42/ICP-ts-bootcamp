@@ -14,7 +14,7 @@ import {
     match
 } from 'azle';
 
-type User = Record<{
+export type User = Record<{
     id: Principal;
     createdAt: nat64;
     recordingIds: Vec<Principal>;
@@ -25,10 +25,10 @@ let users = new StableBTreeMap<Principal, User>(0, 38, 100_000);
 
 
 $update;
-export function createUser(username: string): User {
-    const id = generateId();
+export function createUser(principal: Principal, username: string): User {
+    //const id = generateId();
     const user: User = {
-        id,
+        id: principal,
         createdAt: ic.time(),
         recordingIds: [],
         username

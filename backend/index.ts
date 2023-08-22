@@ -1,4 +1,6 @@
 import { $query, $update, nat } from 'azle';
+export { createUser, readUsers, readUserById, deleteUser } from './user_db';
+export type { User } from './user_db';
 
 // This is a global variable that is stored on the heap
 let counter : nat = BigInt(0);
