@@ -96,4 +96,10 @@ export type State = {
     metadata: Metadatum[];
     minting_account: Opt<Account>;
     name: string;
+    symbol: string;
+    permitted_drift_nanos: nat64;
+    supported_standards: SupportedStandard[];
+    total_supply: nat;
+    transactions: Transaction[];
+    transaction_window_nanos: nat64;
 }
