@@ -60,6 +60,11 @@ export type TransferResult = Variant<{
     Err: TransferError;
 }>;
 
+export type ValidateTransferResult = Variant<{
+    ok: boolean;
+    err: TransferError;
+}>;
+
 export type Value = Variant<{
     Blob: blob;
     Int: int;
