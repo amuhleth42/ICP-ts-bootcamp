@@ -1,4 +1,4 @@
-import { ic, Update } from 'azle';
+import { ic, $update } from 'azle';
 import { handle_burn } from '../transfer/burn';
 import { handle_mint, is_minting_account } from '../transfer/mint';
 import { handle_transfer } from '../transfer/transfer';
@@ -9,7 +9,8 @@ import {
     TransferResult
 } from '../types';
 
-export function icrc1_transfer(args: TransferArgs): Update<TransferResult> {
+$update
+export function icrc1_transfer(args: TransferArgs): TransferResult {
     const from: Account = {
         owner: ic.caller(),
         subaccount: args.from_subaccount

@@ -1,4 +1,4 @@
-import { ic, Init, Opt } from 'azle';
+import { ic, $init, Opt } from 'azle';
 import { state } from './state';
 import { handle_mint } from './transfer/mint';
 import { is_subaccount_valid, stringify } from './transfer/validate';
@@ -9,7 +9,8 @@ import {
     TransferArgs
 } from './types';
 
-export function init(args: InitArgs): Init {
+$init
+export function init(args: InitArgs): void {
     state.decimals = args.decimals;
     state.fee = args.fee;
     state.name = args.name;
