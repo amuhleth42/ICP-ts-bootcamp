@@ -1,28 +1,28 @@
-import { $query, $update, nat } from 'azle';
-export { createUser, readUsers, readUserById, deleteUser } from './user_db';
-export type { User } from './user_db';
+export {
+    get_transactions,
+    icrc1_balance_of,
+    icrc1_decimals,
+    icrc1_fee,
+    icrc1_metadata,
+    icrc1_minting_account,
+    icrc1_name,
+    icrc1_supported_standards,
+    icrc1_symbol,
+    icrc1_total_supply,
+    icrc1_transfer
+} from './api';
 
-// This is a global variable that is stored on the heap
-let counter : nat = BigInt(0);
+//export { init } from './init';
 
-// Query calls complete quickly because they do not go through consensus
-$query;
-export function get(): nat {
-    return counter;
-}
+export {
+    createUser,
+    readUserById,
+    readUsers,
+    deleteUser
+} from './user_db';
 
-// Update calls take a few seconds to complete
-// This is because they persist state changes and go through consensus
-$update;
-export function add(n : nat): nat {
-    counter += n; //
-    return counter;
-}
-
-
-$update;
-export function inc(): nat {
-    counter += BigInt(1);
-    return counter
-}
-
+export {
+    get,
+    add,
+    inc
+} from './backend';
