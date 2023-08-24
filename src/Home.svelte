@@ -4,8 +4,10 @@
     import { all } from './global';
     import Counter from './components/Counter.svelte';
     import { backend } from "./declarations/backend/index.js";
+    import { token } from './declarations/token';
     import { Principal } from 'azle';
     import type { User } from '../backend';
+    import TokenInfos from './TokenInfos.svelte';
 
     export let authClient: AuthClient;
     export let bound = true;
@@ -15,7 +17,7 @@
     $: signedUp = false;
     let username = '';
 
-    let principal : Principal;
+    let principal: Principal;
     principal = authClient.getIdentity().getPrincipal();
 
     function logout() {
@@ -87,6 +89,7 @@
 {:else}
     <h2>Hello, {user.username}</h2>
     <p>bro t'es un gros baiseur!</p>
+    <TokenInfos />
 {/if}
 
 <Counter />

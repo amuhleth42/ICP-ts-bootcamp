@@ -9,6 +9,8 @@ import {
     TransferArgs
 } from './types';
 
+import { config } from './config';
+
 $init
 export function init(args: InitArgs): void {
     state.decimals = args.decimals;
@@ -35,6 +37,7 @@ export function init(args: InitArgs): void {
         ...args.metadata
     ];
     args.initial_account_balances.forEach(initialize_account_balance);
+    console.log("init done!");
 }
 
 function validate_minting_account(minting_account: Opt<Account>): Opt<Account> {

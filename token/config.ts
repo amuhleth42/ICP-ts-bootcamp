@@ -1,0 +1,62 @@
+import { Record, Vec, Opt, Principal } from 'azle';
+import { InitArgs, Account } from './types';
+
+
+let minter: Account = {
+    owner: Principal.fromText('aaaaa'),
+    subaccount: Opt.None
+};
+
+export let config: InitArgs = {
+    decimals: 8,
+    fee: 8n,
+    initial_account_balances: [],
+    metadata: [],
+    minting_account: Opt.Some(minter),
+    name: "GroBaizor",
+    supported_standards: [],
+    symbol: "GBZ"
+}
+
+
+/*let config2 = Record<{
+    decimals = 8 : nat8;
+    fee = 0 : nat;
+    initial_account_balances = vec {
+        record {
+            account = record {
+                owner = principal "jm5gm-r5btc-kor5h-mkrva-sbubi-z2krh-3flug-4xr2v-bnkhf-w23cq-dae";
+                subaccount = opt vec { 0 : nat8; 0 : nat8; 0 : nat8; 0 : nat8 };
+            };
+            balance = 100_000_000 : nat;
+        };
+        record {
+            account = record {
+                owner = principal "jm5gm-r5btc-kor5h-mkrva-sbubi-z2krh-3flug-4xr2v-bnkhf-w23cq-dae";
+                subaccount = opt vec { 0 : nat8; 0 : nat8; 0 : nat8; 1 : nat8 };
+            };
+            balance = 200_000_000 : nat;
+        };
+        record {
+            account = record {
+                owner = principal "5g453-ogeid-pywgl-dn7nj-aiq5z-xohmn-4kbna-lyyot-ry5cp-5wcw4-kae";
+                subaccount = opt vec { 0 : nat8; 0 : nat8; 0 : nat8; 0 : nat8 };
+            };
+            balance = 300_000_000 : nat;
+        };
+        record {
+            account = record {
+                owner = principal "5g453-ogeid-pywgl-dn7nj-aiq5z-xohmn-4kbna-lyyot-ry5cp-5wcw4-kae";
+                subaccount = opt vec { 0 : nat8; 0 : nat8; 0 : nat8; 1 : nat8 };
+            };
+            balance = 400_000_000 : nat;
+        };
+    };
+    metadata = vec {};
+    minting_account = record {
+        owner = principal "jkpmw-aav35-wxvb3-lanyp-62lqw-fmtwc-cvqc3-jcn7p-6jtrt-x7csr-rae";
+    };
+    name = "Azle";
+    supported_standards = vec {};
+    symbol = "AZLE";
+}>;*/

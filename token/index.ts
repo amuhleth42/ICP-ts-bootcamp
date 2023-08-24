@@ -12,4 +12,4 @@ export {
     icrc1_transfer
 } from './api';
 
-export { init } from './init';
+//export { init } from './init';

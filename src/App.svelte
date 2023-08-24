@@ -2,10 +2,10 @@
 
 import { AuthClient } from '@dfinity/auth-client';
 import { Actor, HttpAgent } from '@dfinity/agent';
-  import { idlFactory } from './declarations/backend';
 import Home from './Home.svelte';
 import { writable } from 'svelte/store';
 import { all } from './global'
+import { internet_identity, canisterId as iiId } from './declarations/internet_identity';
 
 let authClient;
 
@@ -14,11 +14,17 @@ $: isLoggedIn = all.loggedIn;
 $: console.log("bro? ", isLoggedIn);
 
 let login = async () => {
+  console.log(1, process.env.CANISTER_ID_INTERNET_IDENTITY);
+  console.log(1, process.env.CANISTER_ID_internet_identity);
+  console.log(1, process.env.INTERNET_IDENTITY_CANISTER_ID);
+  console.log('damn boy', iiId);
+
+
   await authClient.login({
     identityProvider:
       process.env.DFX_NETWORK === "ic"
       ? "https://identity.ic0.app/#authorize"
-      : `http://localhost:4943?canisterId=${process.env.CANISTER_ID_INTERNET_IDENTITY}#authorize`,
+      : `http://localhost:4943?canisterId=${iiId}#authorize`,
     onSuccess: async () => {
       handleAuthenticated(authClient);
     },
@@ -35,7 +41,7 @@ const init = async () => {
 
   all.loggedIn = false;
   //process.env.CANISTER_ID_INTERNET_IDENTITY = 'br5f7-7uaaa-aaaaa-qaaca-cai';
-  process.env.CANISTER_ID_INTERNET_IDENTITY = 'be2us-64aaa-aaaaa-qaabq-cai';
+  //process.env.CANISTER_ID_INTERNET_IDENTITY = 'be2us-64aaa-aaaaa-qaabq-cai';
   console.table(process.env);
   authClient = await AuthClient.create();
   if (await authClient.isAuthenticated()) {
