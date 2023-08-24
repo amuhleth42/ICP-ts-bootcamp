@@ -1,22 +1,26 @@
 <script lang='ts'>
 
-import { Opt, nat, nat8 } from "azle";
-import { token } from "./declarations/token/index.js";
+import { backend } from "./declarations/backend/index.js";
+import { Principal } from "@dfinity/principal";
+//import { Subaccount } from './types'
 
-export let principal;
+export let principal: Principal;
 
-let fee: nat;
-let decimals: nat8;
+let fee;
+let decimals;
 let name: string;
 let symbol: string;
-let balance: nat;
+let balance;
 
 let init = async () => {
-    fee = await token.icrc1_fee();
-    decimals = await token.icrc1_decimals();
-    name = await token.icrc1_name();
-    symbol = await token.icrc1_symbol();
-    balance = await token.icrc1_balance_of({ owner: principal, subaccount: Opt.None});
+
+    console.log("principal", principal);
+    fee = await backend.icrc1_fee();
+    decimals = await backend.icrc1_decimals();
+    name = await backend.icrc1_name();
+    symbol = await backend.icrc1_symbol();
+    console.log(principal);
+    balance = await backend.getBalance(principal);
 
 
 }

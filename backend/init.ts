@@ -17,8 +17,16 @@ export function init(args: InitArgs): void {
     state.fee = args.fee;
     state.name = args.name;
     state.minting_account = validate_minting_account(args.minting_account);
-    state.permitted_drift_nanos =
-        args.permitted_drift_nanos ?? state.permitted_drift_nanos;
+
+    let pdn = args.permitted_drift_nanos.Some;
+
+    if (pdn === undefined)
+        state.permitted_drift_nanos = state.permitted_drift_nanos;
+    else
+        state.permitted_drift_nanos = pdn;
+
+
+
     state.supported_standards = [
         {
             name: 'ICRC-1',
@@ -27,8 +35,16 @@ export function init(args: InitArgs): void {
         ...args.supported_standards
     ];
     state.symbol = args.symbol;
-    state.transaction_window_nanos =
-        args.transaction_window_nanos ?? state.transaction_window_nanos;
+
+
+    let twn = args.transaction_window_nanos.Some;
+
+    if (twn === undefined)
+        state.transaction_window_nanos = state.transaction_window_nanos;
+    else
+        state.transaction_window_nanos = twn;
+
+
     state.metadata = [
         ['icrc1:decimals', { Nat: BigInt(state.decimals) }],
         ['icrc1:fee', { Nat: state.fee }],
@@ -41,10 +57,10 @@ export function init(args: InitArgs): void {
 }
 
 function validate_minting_account(minting_account: Opt<Account>): Opt<Account> {
-    if (minting_account !== null &&
-        is_subaccount_valid(minting_account.subaccount) === false) {
-        ic.trap('subaccount for minting account must be 32 bytes in length');
-    }
+    // if (minting_account !== null &&
+    //     is_subaccount_valid(minting_account.subaccount) === false) {
+    //     ic.trap('subaccount for minting account must be 32 bytes in length');
+    // }
     return minting_account;
 }
 

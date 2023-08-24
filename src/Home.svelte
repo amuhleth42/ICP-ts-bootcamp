@@ -4,9 +4,8 @@
     import { all } from './global';
     import Counter from './components/Counter.svelte';
     import { backend } from "./declarations/backend/index.js";
-    import { token } from './declarations/token';
-    import { Principal } from 'azle';
-    import type { User } from '../backend';
+    import { Principal } from '@dfinity/principal';
+    import type { User } from './types';
     import TokenInfos from './TokenInfos.svelte';
 
     export let authClient: AuthClient;

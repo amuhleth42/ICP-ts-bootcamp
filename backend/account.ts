@@ -1,4 +1,4 @@
-import { nat, nat32, Opt } from 'azle';
+import { nat, nat32, Opt, match } from 'azle';
 import { state } from './state';
 import { Account, OwnerKey, Subaccount, SubaccountKey } from './types';
 
@@ -32,12 +32,27 @@ export function get_account_keys(account: Account): {
 }
 
 export function subaccount_to_nat32(subaccount: Opt<Subaccount>): nat32 {
-    const subaccount_number =
-        subaccount === null ? 0 : new DataView(subaccount.buffer).getUint32(0);
+    //const subaccount_number =
+    //    subaccount === null ? 0 : new DataView(subaccount.buffer).getUint32(0);
+
+    let sub = subaccount.Some;
+
+    if (sub === undefined)
+        return 0;
+    return new DataView(sub.buffer).getUint32(0);
+    // return match(subaccount, {
+    //     Some: (sub) => (new DataView(sub.buffer).getUint32(0)),
+    //     None: 0n
+    // });
 }
 
 export function balance_of(account: Account): nat {
+
+    console.log('balance_of before');
+
     const { owner_key, subaccount_key } = get_account_keys(account);
+
+    console.log('balance_of');
 
     return state.accounts?.[owner_key]?.[subaccount_key] ?? 0n;
 }

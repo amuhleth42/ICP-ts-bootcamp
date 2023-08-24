@@ -15,6 +15,8 @@ export function get_transactions(
 
 $query
 export function icrc1_balance_of(account: Account): nat {
+
+    console.log('icrc1 balance of');
     return balance_of(account);
 }
 

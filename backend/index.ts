@@ -26,3 +26,7 @@ export {
     add,
     inc
 } from './backend';
+
+export {
+    getBalance
+} from './account2';
