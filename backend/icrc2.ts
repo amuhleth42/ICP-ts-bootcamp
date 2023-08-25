@@ -3,7 +3,7 @@ import { Account } from './types';
 
 
 
-icrc2_approve : (ApproveArgs) -> (variant { Ok : nat; Err : ApproveError });
+//icrc2_approve : (ApproveArgs) -> (variant { Ok : nat; Err : ApproveError });
 
 type ApproveArgs = Record<{
     from_subaccount : Opt<blob>;
@@ -31,3 +31,4 @@ type ApproveError = Variant<{
     TemporarilyUnavailable: null;
     GenericError : Record<{ error_code : nat; message : text }>;
 }>;
+

@@ -12,11 +12,16 @@ import {
     $update,
     Variant,
     Vec,
-    match
+    match,
+    $postUpgrade,
+    Tuple,
+    $preUpgrade
 } from 'azle';
 
 import { mint, getBalance, getAccount } from './account2';
 import { icrc1_balance_of } from './api';
+import { state } from './state';
+import { set_account_balance } from './account';
 
 export type User = Record<{
     id: Principal;
@@ -27,6 +32,40 @@ export type User = Record<{
 }>;
 
 let users = new StableBTreeMap<Principal, User>(0, 38, 100_000);
+
+// $preUpgrade;
+// export function nulnul(): void {
+//     console.log('bro');
+// }
+
+$postUpgrade;
+export function getData(): void {
+    let vec = users.values();
+
+    vec.forEach((user: User) => {
+        set_account_balance(getAccount(user.id, Opt.None), user.balance);
+        //console.log('yo');
+    });
+    //console.log('yo');
+    let total = vec.reduce((a: User, b: User): User => {
+        return {
+            id: a.id,
+            createdAt: a.createdAt,
+            recordingIds: a.recordingIds,
+            username: a.username,
+            balance: a.balance + b.balance
+        }
+
+    });
+    console.log("total: ", total.balance);
+    state.total_supply = total.balance;
+
+}
+
+
+
+
+
 
 $update;
 export function createUser(principal: Principal, username: string): User {

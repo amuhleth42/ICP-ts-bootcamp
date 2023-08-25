@@ -18,7 +18,8 @@ export {
     createUser,
     readUserById,
     readUsers,
-    deleteUser
+    deleteUser,
+    getData
 } from './user_db';
 
 export {
