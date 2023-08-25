@@ -15,7 +15,8 @@ import {
     match
 } from 'azle';
 
-import { mint, getBalance } from './account2';
+import { mint, getBalance, getAccount } from './account2';
+import { icrc1_balance_of } from './api';
 
 export type User = Record<{
     id: Principal;
@@ -27,7 +28,6 @@ export type User = Record<{
 
 let users = new StableBTreeMap<Principal, User>(0, 38, 100_000);
 
-
 $update;
 export function createUser(principal: Principal, username: string): User {
     //const id = generateId();
@@ -36,14 +36,14 @@ export function createUser(principal: Principal, username: string): User {
         createdAt: ic.time(),
         recordingIds: [],
         username,
-        balance: 100n
+        balance: 12n
     };
     console.log("create user before mint");
     let mintRes = mint(100n, principal);
-    getBalance(principal);
     console.log("create user after mint", mintRes);
 
     users.insert(user.id, user);
+    setUserBalance(principal);
 
     return user;
 }
@@ -56,6 +56,27 @@ export function readUsers(): Vec<User> {
 $query;
 export function readUserById(id: Principal): Opt<User> {
     return users.get(id);
+}
+
+$update
+export function setUserBalance(principal: Principal): nat {
+    let user = readUserById(principal);
+    let u = user.Some;
+    if (u === undefined) {
+        console.log("bug");
+        return 0n;
+    }
+    console.log('set user balance!', principal.toText());
+
+    const newUser: User = {
+        id: u.id,
+        createdAt: u.createdAt,
+        recordingIds: u.recordingIds,
+        username: u.username,
+        balance: icrc1_balance_of(getAccount(principal, Opt.None))
+    }
+    users.insert(u.id, newUser);
+    return newUser.balance;
 }
 
 $update;

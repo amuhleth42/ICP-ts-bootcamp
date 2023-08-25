@@ -11,6 +11,7 @@ let decimals;
 let name: string;
 let symbol: string;
 let balance: bigint;
+let totalSupply: bigint;
 
 async function mint100() {
     console.log('mint100');
@@ -25,7 +26,7 @@ async function mint100() {
 async function burn50() {
     console.log('burn50');
     let res = await backend.burn(50n);
-    balance = await backend.getBalance(principal);
+    balance = await backend.setUserBalance(principal);
     if (res === true)
         console.log('burn50 failed');
     else
@@ -36,12 +37,15 @@ let init = async () => {
 
     console.log("principal", principal);
     console.log("principal to text", principal.toText());
-    fee = await backend.icrc1_fee();
-    decimals = await backend.icrc1_decimals();
-    name = await backend.icrc1_name();
-    symbol = await backend.icrc1_symbol();
-    console.log(principal);
-    balance = await backend.getBalance(principal);
+    Promise.all([
+        fee = await backend.icrc1_fee(),
+        decimals = await backend.icrc1_decimals(),
+        name = await backend.icrc1_name(),
+        symbol = await backend.icrc1_symbol(),
+        console.log(principal),
+        balance = await backend.getBalance(principal),
+        totalSupply = await backend.icrc1_total_supply()
+    ]);
 
     //backend.icrc1_transfer
 
@@ -60,6 +64,7 @@ init();
     <div>Decimals: {decimals}</div>
     <div>Fee: {fee}</div>
     <div>Your balance: {balance}</div>
+    <div>Total supply: {totalSupply}</div>
     <button on:click={ mint100 }>Mint 100 GBZ</button>
     <button on:click={ burn50 }>Burn 50 GBZ</button>
 </div>

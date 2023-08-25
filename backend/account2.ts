@@ -3,7 +3,7 @@ import { Account, Subaccount, TransferArgs, TransferResult } from "./types";
 import { icrc1_balance_of, icrc1_transfer, icrc_transfer_from } from "./api";
 import { state } from "./state";
 import { handle_mint } from "./transfer/mint";
-import { readUserById } from './user_db';
+import { setUserBalance } from './user_db';
 
 export function getAccount(owner: Principal, sub: Opt<blob>): Account {
     return {
@@ -16,13 +16,7 @@ $query
 export function getBalance(owner: Principal): nat {
 
     //console.log('getBalance 1');
-    let user = readUserById(owner);
-
-    let u = user.Some;
-    if (u === undefined)
-        return 0n;
-    u.balance = icrc1_balance_of(getAccount(owner, Opt.None));
-    return u.balance;
+    return icrc1_balance_of(getAccount(owner, Opt.None));
 }
 
 $update
@@ -83,9 +77,10 @@ export function mint(amount: bigint, to: Principal): boolean {
     console.log(res);
     let resOk = res.Ok;
     if (resOk === undefined) {
-        getBalance(to);
         return true;
     }
+    console.log("tu passes pas par la bro?");
+    setUserBalance(to);
     return false;
 }
 

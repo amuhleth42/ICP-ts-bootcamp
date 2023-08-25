@@ -73,5 +73,6 @@ service : () -> {
   mint : (int, principal) -> (bool);
   readUserById : (principal) -> (opt User) query;
   readUsers : () -> (vec User) query;
+  setUserBalance : (principal) -> (nat);
   transfer : (int, principal) -> (bool);
 }

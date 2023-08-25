@@ -1,4 +1,5 @@
 <script lang='ts'>
+  import { getBalance } from "../backend";
   import { backend } from "./declarations/backend";
 
 
@@ -6,6 +7,7 @@
 
   async function getAll() {
     users = await backend.readUsers();
+    console.log("get all");
 
   }
 
@@ -19,7 +21,8 @@
         {#each users as user}
             <div class="user">
                 <p>Username: {user.username}</p>
-                <p>Balance: {user.balance}</p>
+                <p>Balance(user db): {user.balance}</p>
+                <!--<p>Balance(token db): {}</p>-->
             </div>
         {/each}
     </div>

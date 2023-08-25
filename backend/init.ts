@@ -1,4 +1,4 @@
-import { ic, $init, Opt } from 'azle';
+import { ic, $init, Opt, StableBTreeMap } from 'azle';
 import { state } from './state';
 import { handle_mint } from './transfer/mint';
 import { is_subaccount_valid, stringify } from './transfer/validate';
@@ -10,6 +10,8 @@ import {
 } from './types';
 
 import { config } from './config';
+
+let data = new StableBTreeMap<string, InitArgs>(1, 50, 100_000_000);
 
 $init
 export function init(args: InitArgs): void {
