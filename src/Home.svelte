@@ -8,6 +8,7 @@
     import type { User } from './types';
     import TokenInfos from './TokenInfos.svelte';
     import MemberList from './MemberList.svelte';
+  import Board from './Board.svelte';
 
     export let authClient: AuthClient;
     export let bound = true;
@@ -74,7 +75,7 @@
 </script>
 
 
-<h1>You are inside !</h1>
+<h1>ICP Rankers</h1>
 
 {#if !signedUp}
     <div class="signup">
@@ -87,10 +88,11 @@
         </form>
     </div>
 {:else}
-    <h2>Hello, {user.username}</h2>
-    <p>bro t'es un gros baiseur!</p>
-    <TokenInfos {principal}/>
-    <MemberList {principal}/>
+    <!-- <h2>Hello, {user.username}</h2> -->
+    <h2>Proposal 1 :</h2>
+    <!-- <TokenInfos {principal}/>
+    <MemberList {principal}/> -->
+    <Board />
 {/if}
 
 <Counter />
