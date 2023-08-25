@@ -8,7 +8,8 @@
     import type { User } from './types';
     import TokenInfos from './TokenInfos.svelte';
     import MemberList from './MemberList.svelte';
-  import Board from './Board.svelte';
+    import Board from './Board.svelte';
+    import Vote from './Vote.svelte';
 
     export let authClient: AuthClient;
     export let bound = true;
@@ -93,8 +94,21 @@
     <!-- <TokenInfos {principal}/>
     <MemberList {principal}/> -->
     <Board />
+    <Vote {principal}/>
 {/if}
 
-<Counter />
+<div class="bottom">
+    <Counter />
+    <button on:click={ logout } id='logoutButton'>Logout</button>
+</div>
 
-<button on:click={ logout } id='logoutButton'>Logout</button>
+<style>
+
+.bottom {
+    display: flex;
+    margin: 30px;
+    gap: 15px;
+}
+
+
+</style>
