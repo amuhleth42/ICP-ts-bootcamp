@@ -1,5 +1,5 @@
 import { balance_of, set_account_balance } from '../account';
-import { ic } from 'azle';
+import { ic, Opt } from 'azle';
 import { state } from '../state';
 import {
     Account,
@@ -14,24 +14,32 @@ export function handle_transfer(args: TransferArgs, from: Account): TransferResu
         Transfer: null
     };
 
-    const fee = args.fee ?? state.fee;
+    //const fee = args.fee ?? state.fee;
+    let fee = args.fee.Some;
+    if (fee === undefined)
+        fee = state.fee;
 
     set_account_balance(from, balance_of(from) - args.amount - fee);
     set_account_balance(args.to, balance_of(args.to) + args.amount);
 
-    if (state.minting_account !== null) {
+    let minter = state.minting_account.Some;
+    if (minter !== undefined) {
         set_account_balance(
-            state.minting_account,
-            balance_of(state.minting_account) + fee
+            minter,
+            balance_of(minter) + fee
         );
     }
 
     state.total_supply -= fee;
 
     const transaction: Transaction = {
-        args,
+        args: {
+            Some: args
+        },
         fee,
-        from,
+        from: {
+            Some: from
+        },
         kind,
         timestamp: ic.time()
     };

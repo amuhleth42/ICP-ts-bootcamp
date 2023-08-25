@@ -13,7 +13,9 @@ export function handle_mint(args: TransferArgs, from: Opt<Account>): TransferRes
     state.total_supply += args.amount;
 
     const transaction: Transaction = {
-        args,
+        args: {
+            Some: args
+        },
         fee: 0n,
         from,
         kind: {
@@ -22,15 +24,20 @@ export function handle_mint(args: TransferArgs, from: Opt<Account>): TransferRes
         timestamp: ic.time()
     };
 
+    console.log("handle mint");
     state.transactions.push(transaction);
 
     const transfer_result: TransferResult = {
         Ok: args.amount
     };
 
+    console.log("handle mint success");
     return transfer_result;
 }
 
 export function is_minting_account(owner: Principal): boolean {
-    return owner.toText() === state.minting_account?.owner.toText();
+    let minter = state.minting_account.Some;
+    if (minter === undefined)
+        return false;
+    return owner.toText() === minter.owner.toText();
 }

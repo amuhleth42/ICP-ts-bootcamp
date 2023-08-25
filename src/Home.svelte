@@ -7,6 +7,7 @@
     import { Principal } from '@dfinity/principal';
     import type { User } from './types';
     import TokenInfos from './TokenInfos.svelte';
+    import MemberList from './MemberList.svelte';
 
     export let authClient: AuthClient;
     export let bound = true;
@@ -26,7 +27,7 @@
         authClient.logout();
         all.loggedIn = false;
         bound = false;
-        console.log(all.loggedIn);
+        //console.log(all.loggedIn);
     }
 
     async function handleSubmit(event: Event): Promise<void> {
@@ -53,11 +54,11 @@
 
     let isSignedUp = async (id: Principal) => {
         const found = await backend.readUserById(id);
-        console.log("found", found);
-        console.log("typeof found", typeof found);
+        //console.log("found", found);
+        //console.log("typeof found", typeof found);
         if (found.length > 0) {
             user = found[0];
-            console.log('user', user)
+            //console.log('user', user)
             return (true);
         }
         return (false);
@@ -89,6 +90,7 @@
     <h2>Hello, {user.username}</h2>
     <p>bro t'es un gros baiseur!</p>
     <TokenInfos {principal}/>
+    <MemberList />
 {/if}
 
 <Counter />

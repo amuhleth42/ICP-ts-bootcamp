@@ -2,6 +2,7 @@ import {
     blob,
     ic,
     nat64,
+    nat,
     Opt,
     Principal,
     $query,
@@ -14,10 +15,13 @@ import {
     match
 } from 'azle';
 
+import { mint, getBalance } from './account2';
+
 export type User = Record<{
     id: Principal;
     createdAt: nat64;
     recordingIds: Vec<Principal>;
+    balance: nat;
     username: string;
 }>;
 
@@ -31,8 +35,13 @@ export function createUser(principal: Principal, username: string): User {
         id: principal,
         createdAt: ic.time(),
         recordingIds: [],
-        username
+        username,
+        balance: 100n
     };
+    console.log("create user before mint");
+    let mintRes = mint(100n, principal);
+    getBalance(principal);
+    console.log("create user after mint", mintRes);
 
     users.insert(user.id, user);
 

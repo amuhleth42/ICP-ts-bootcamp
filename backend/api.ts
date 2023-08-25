@@ -15,8 +15,6 @@ export function get_transactions(
 
 $query
 export function icrc1_balance_of(account: Account): nat {
-
-    console.log('icrc1 balance of');
     return balance_of(account);
 }
 
@@ -60,4 +58,4 @@ export function icrc1_total_supply(): nat {
     return state.total_supply;
 }
 
-export { icrc1_transfer } from './transfer';
+export { icrc1_transfer, icrc_transfer_from } from './transfer';

@@ -13,9 +13,13 @@ export function handle_burn(args: TransferArgs, from: Account): TransferResult {
     state.total_supply -= args.amount;
 
     const transaction: Transaction = {
-        args,
+        args: {
+            Some: args
+        },
         fee: 0n,
-        from,
+        from: {
+            Some: from
+        },
         kind: {
             Burn: null
         },

@@ -30,6 +30,7 @@ type TransferResult = variant { Ok : nat; Err : TransferError };
 type User = record {
   id : principal;
   username : text;
+  balance : nat;
   recordingIds : vec principal;
   createdAt : nat64;
 };
@@ -52,6 +53,7 @@ type _InlineTransferErrorGenericError = record {
 type _InlineTransferErrorInsufficientFunds = record { balance : nat };
 service : () -> {
   add : (nat) -> (nat);
+  burn : (int) -> (bool);
   createUser : (principal, text) -> (User);
   deleteUser : (principal) -> (_AzleResult);
   get : () -> (nat) query;
@@ -68,6 +70,8 @@ service : () -> {
   icrc1_total_supply : () -> (nat) query;
   icrc1_transfer : (TransferArgs) -> (TransferResult);
   inc : () -> (nat);
+  mint : (int, principal) -> (bool);
   readUserById : (principal) -> (opt User) query;
   readUsers : () -> (vec User) query;
+  transfer : (int, principal) -> (bool);
 }

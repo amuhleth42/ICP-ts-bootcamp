@@ -28,5 +28,8 @@ export {
 } from './backend';
 
 export {
-    getBalance
+    getBalance,
+    transfer,
+    mint,
+    burn
 } from './account2';

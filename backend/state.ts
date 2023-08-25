@@ -1,12 +1,21 @@
-import { State } from './types';
-import { Opt } from 'azle';
+import { State, Account } from './types';
+import { Opt, Principal } from 'azle';
+
+function getMintingAccount(): Account {
+    let principal = Principal.fromText('27olm-cl2ri-ft5qk-nkhnr-v626z-alnla-dvqfz-mufg4-izbql-l72ky-bae');
+    return {
+        owner: principal,
+        subaccount: Opt.None
+    }
+}
 
 export let state: State = {
     accounts: {},
     decimals: 8,
     fee: 1n,
     metadata: [],
-    minting_account: Opt.None,
+    minting_account: Opt.Some(getMintingAccount()),
+    //minting_account: { owner: 'abcd-abcd-abcd'}
     name: 'OnlyBeuteu',
     permitted_drift_nanos: 60_000_000_000n,
     supported_standards: [

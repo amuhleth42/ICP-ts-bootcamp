@@ -48,11 +48,7 @@ export function subaccount_to_nat32(subaccount: Opt<Subaccount>): nat32 {
 
 export function balance_of(account: Account): nat {
 
-    console.log('balance_of before');
-
     const { owner_key, subaccount_key } = get_account_keys(account);
-
-    console.log('balance_of');
 
     return state.accounts?.[owner_key]?.[subaccount_key] ?? 0n;
 }

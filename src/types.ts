@@ -1,5 +1,5 @@
-import { Record, Principal, nat64, Vec, blob, Opt } from 'azle';
-
+import { Record, nat64, Vec, blob, Opt } from 'azle';
+import { Principal } from "@dfinity/principal";
 
 export type User = Record<{
     id: Principal;

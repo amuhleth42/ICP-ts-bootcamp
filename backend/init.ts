@@ -78,10 +78,10 @@ function initialize_account_balance(
 
     const args: TransferArgs = {
         amount: initial_account_balance.balance,
-        created_at_time: ic.time(),
-        fee: null,
-        from_subaccount: null,
-        memo: null,
+        created_at_time: Opt.Some(ic.time()),
+        fee: Opt.None,
+        from_subaccount: Opt.None,
+        memo: Opt.None,
         to: initial_account_balance.account
     };
 
