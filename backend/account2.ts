@@ -20,22 +20,25 @@ export function getBalance(owner: Principal): nat {
 }
 
 $update
-export function transfer(amount: bigint, to: Principal): boolean {
+export function transfer(amount: bigint, from: Principal, to: Principal): boolean {
 
-    const args: TransferArgs = {
-        amount: amount,
-        created_at_time: {
-            Some: ic.time()
-        },
-        fee: Opt.Some(state.fee),
-        from_subaccount: Opt.None,
-        memo: Opt.None,
-        to: getAccount(to, Opt.None)
-    }
-    let res = icrc1_transfer(args);
+    // const args: TransferArgs = {
+    //     amount: amount,
+    //     created_at_time: {
+    //         Some: ic.time()
+    //     },
+    //     fee: Opt.Some(state.fee),
+    //     from_subaccount: Opt.None,
+    //     memo: Opt.None,
+    //     to: getAccount(to, Opt.None)
+    // }
+    let res = icrc_transfer_from(amount, getAccount(from, Opt.None), to);
     let resOk = res.Ok;
     if (resOk === undefined)
         return true;
+
+    setUserBalance(to);
+    setUserBalance(from);
     return false;
 }
 

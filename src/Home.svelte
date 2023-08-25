@@ -90,7 +90,7 @@
     <h2>Hello, {user.username}</h2>
     <p>bro t'es un gros baiseur!</p>
     <TokenInfos {principal}/>
-    <MemberList />
+    <MemberList {principal}/>
 {/if}
 
 <Counter />
