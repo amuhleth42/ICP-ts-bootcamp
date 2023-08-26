@@ -1,8 +1,11 @@
-<script>
+<script lang='ts'>
+
+
+export let listName: string;
 
 </script>
 
-<h2>Proposal 1 :</h2>
+<h2>{listName}</h2>
 
 <div class="board">
     <div class="row">

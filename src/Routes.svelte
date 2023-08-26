@@ -8,6 +8,10 @@
   import { props } from "../backend/tierList";
   import Lists from "./Lists.svelte";
   import CreateList from "./CreateList.svelte";
+  import Board from "./Board.svelte";
+  import TokenInfos from "./TokenInfos.svelte";
+  import MemberList from "./MemberList.svelte";
+  import HomeProfile from "./HomeProfile.svelte";
 
   export let authClient: AuthClient;
 
@@ -17,7 +21,12 @@
     <Route path='/'>
         <Login {authClient}/>
     </Route>
-    <Route path='/home' component={Home}></Route>
+    <Route path='/home'>
+        <!-- <TokenInfos principal={authClient.getIdentity().getPrincipal()}/> -->
+        <HomeProfile principal={authClient.getIdentity().getPrincipal()}/>
+        <MemberList principal={authClient.getIdentity().getPrincipal()}/>
+        <Board listName={'hey'}/>
+    </Route>
     <Route path='/signup'>
         <Signup {authClient}/>
     </Route>
@@ -26,6 +35,9 @@
     </Route>
     <Route path='/create_list'>
         <CreateList />
+    </Route>
+    <Route path='/board/:listName' let:params>
+        <Board listName={params.listName}/>
     </Route>
 
 
