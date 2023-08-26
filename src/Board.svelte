@@ -1,39 +1,71 @@
 <script lang='ts'>
+  import { Principal } from "@dfinity/principal";
+  import { getList } from "../backend/tierList";
+  import { backend } from "./declarations/backend";
+
+  import type { VoteType, PropType, List } from "./types";
+  import Prop from "./Prop.svelte";
 
 
 export let listName: string;
 
+let list: List;
+
+async function init() {
+
+    let res = await backend.getList(listName);
+    if (res.length > 0) {
+        list = res[0];
+        console.log(list);
+    }
+
+}
 </script>
 
-<h2>{listName}</h2>
+{#await init()}
+    <p>loading...</p>
+{:then _}
+    <h2>{listName}</h2>
 
-<div class="board">
-    <div class="row">
-        <div class='box s'>
-            <p>S</p>
+    <div class="board">
+        <div class="row">
+            <div class='box s'>
+                <p>S</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class='box a'>
+                <p>A</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class='box b'>
+                <p>B</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class='box c'>
+                <p>C</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class='box d'>
+                <p>D</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class='box e'>
+                <p></p>
+            </div>
+            <div class="propCont">
+                {#each list.elems as prop}
+                    <Prop {prop}/>
+                {/each}
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class='box a'>
-            <p>A</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class='box b'>
-            <p>B</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class='box c'>
-            <p>C</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class='box d'>
-            <p>D</p>
-        </div>
-    </div>
-</div>
+
+{/await}
 
 <style>
 
@@ -88,4 +120,15 @@ export let listName: string;
 .d {
     background-color: #C0FD86;
 }
+.e {
+    background-color: #000000;
+}
+
+.propCont {
+    display: flex;
+    gap: 20px;
+}
+
+
+
 </style>

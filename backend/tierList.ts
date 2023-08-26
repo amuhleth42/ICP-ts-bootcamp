@@ -6,6 +6,7 @@ import {
     StableBTreeMap, 
     Principal,
     Vec,
+    Opt,
     $query,
     $update
 } from "azle";
@@ -41,6 +42,12 @@ export let props = new StableBTreeMap<text, List>(1, 200, 100_000_000);
 $query;
 export function readProps(): Vec<text> {
     return props.keys();
+}
+
+$query;
+export function getList(listName: text): Opt<List> {
+
+    return props.get(listName);
 }
 
 $update;

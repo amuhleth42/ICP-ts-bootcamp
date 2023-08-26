@@ -37,5 +37,6 @@ export {
 
 export {
     readProps,
-    addList
+    addList,
+    getList
 } from './tierList';
