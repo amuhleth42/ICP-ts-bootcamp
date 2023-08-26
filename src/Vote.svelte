@@ -21,5 +21,6 @@ export let principal: Principal;
         <label for="c">C</label>
         <input type="radio" id="d" name="fav_language" value="HTML">
         <label for="d">D</label>
+        <button>Vote!</button>
     </form>
 </div>
