@@ -1,4 +1,5 @@
 type Account = record { owner : principal; subaccount : opt vec nat8 };
+type FrontProp = record { img_url : text; name : text };
 type SupportedStandard = record { url : text; name : text };
 type Transaction = record {
   fee : nat;
@@ -53,6 +54,7 @@ type _InlineTransferErrorGenericError = record {
 type _InlineTransferErrorInsufficientFunds = record { balance : nat };
 service : () -> {
   add : (nat) -> (nat);
+  addList : (text, text, vec FrontProp, principal) -> (bool);
   burn : (int) -> (bool);
   createUser : (principal, text) -> (User);
   deleteUser : (principal) -> (_AzleResult);

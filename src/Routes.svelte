@@ -14,6 +14,7 @@
   import HomeProfile from "./HomeProfile.svelte";
 
   export let authClient: AuthClient;
+  let principal = authClient.getIdentity().getPrincipal();
 
 </script>
 
@@ -23,8 +24,8 @@
     </Route>
     <Route path='/home'>
         <!-- <TokenInfos principal={authClient.getIdentity().getPrincipal()}/> -->
-        <HomeProfile principal={authClient.getIdentity().getPrincipal()}/>
-        <MemberList principal={authClient.getIdentity().getPrincipal()}/>
+        <HomeProfile {principal}/>
+        <MemberList {principal}/>
         <Board listName={'hey'}/>
     </Route>
     <Route path='/signup'>
@@ -34,7 +35,7 @@
         <Lists />
     </Route>
     <Route path='/create_list'>
-        <CreateList />
+        <CreateList {principal}/>
     </Route>
     <Route path='/board/:listName' let:params>
         <Board listName={params.listName}/>

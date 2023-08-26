@@ -10,12 +10,17 @@ import {
     $update
 } from "azle";
 
+export type Vote = Record<{
+    owner: Principal,
+    rating: float32
+}>;
+
 export type Prop = Record<{
     // id: nat,
     name: text,
     // rating: float32,
     img_url: text,
-    voters: Map<Principal, float32>,
+    voters: Vec<Vote>,
 }>;
 
 export type List = Record<{
@@ -39,17 +44,17 @@ export function readProps(): Vec<text> {
 }
 
 $update;
-export function addList(name: text, tag: text, newProps: Vec<FrontProp>, principal: Principal) {
+export function addList(name: text, tag: text, newProps: Vec<FrontProp>, principal: Principal): boolean {
  
     let newList: List;
-    let vec: Vec<Prop>;
+    let vec: Vec<Prop> = new Array(0);
     
     newProps.forEach((elem) => {
         vec.push({
             name: elem.name,
             img_url: elem.img_url,
             // rating: 0.5,
-            voters: new Map(),
+            voters: new Array(),
         });
     });
 
@@ -59,5 +64,5 @@ export function addList(name: text, tag: text, newProps: Vec<FrontProp>, princip
         owner: principal,
         elems: vec
     });
-
+    return false;
 }

@@ -1,8 +1,12 @@
 <script lang='ts'>
+  import { Principal } from "@dfinity/principal";
+  import { backend } from "./declarations/backend";
+
 
   import { all } from "./global";
   import PropForm from "./PropForm.svelte";
 
+  export let principal: Principal;
   let listName: '';
   let vec: FrontProp[] = new Array(0);
   
@@ -32,9 +36,15 @@
   async function handleSubmit(event: Event): Promise<void> {
 
     event.preventDefault();
-    console.log("handle submit");
+    console.log("handle submit", vec);
 
-    console.log(vec);
+    let res = await backend.addList(listName, '', vec, principal);
+    if (res)
+        console.log("create list success");
+    else
+        console.log("create list fail");
+
+
     document.location.href = `/board/${listName}`;
   }
 

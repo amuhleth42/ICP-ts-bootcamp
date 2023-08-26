@@ -36,5 +36,6 @@ export {
 } from './account2';
 
 export {
-    readProps
+    readProps,
+    addList
 } from './tierList';
