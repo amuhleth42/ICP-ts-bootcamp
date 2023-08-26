@@ -13,6 +13,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  //width: 100%;
 }
 
 a {
@@ -27,10 +28,10 @@ a {
 
 body {
   margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  // display: flex;
+  // flex-direction: column;
+  // align-items: stretch;
+  // justify-content: space-between;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;

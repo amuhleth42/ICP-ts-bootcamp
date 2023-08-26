@@ -5,7 +5,8 @@ import {
     float32, 
     StableBTreeMap, 
     Principal,
-    Vec
+    Vec,
+    $query
 } from "azle";
 
 export type Prop = Record<{
@@ -17,4 +18,10 @@ export type Prop = Record<{
     owner: Principal
 }>;
 
-export let props = new StableBTreeMap<text, Prop>(1, 200, 100_000);
+export let props = new StableBTreeMap<text, Vec<Prop>>(1, 200, 100_000_000);
+
+
+$query;
+export function readProps(): Vec<text> {
+    return props.keys();
+}

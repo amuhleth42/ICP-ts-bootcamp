@@ -34,3 +34,7 @@ export {
     mint,
     burn
 } from './account2';
+
+export {
+    readProps
+} from './tierList';

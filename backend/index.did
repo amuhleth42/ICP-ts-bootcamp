@@ -71,6 +71,7 @@ service : () -> {
   icrc1_transfer : (TransferArgs) -> (TransferResult);
   inc : () -> (nat);
   mint : (int, principal) -> (bool);
+  readProps : () -> (vec text) query;
   readUserById : (principal) -> (opt User) query;
   readUsers : () -> (vec User) query;
   setUserBalance : (principal) -> (nat);
